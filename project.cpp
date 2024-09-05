@@ -38,16 +38,41 @@ class Clint :public Person
 private:
       double balance;
 public:
+      void SetBalance(double Balance)
+      {
+          if(Balance>=1500){
+            balance = Balance;
+          }else {
+          balance= 0;
+          cout<<" min balance is 1500";
+          }
+      }
+      double GetBalance(){
+      return balance;
+      }
+      void Deposit(double Amount){
+       balance=GetBalance() +Amount;
+      }
+      void Withdraw(double Amount){
+      if(balance>Amount){
+        balance=GetBalance()-Amount;
+        cout<<"your balance now is "<<balance;
+      }else if(balance<Amount){
+          cout<<"balance isn't enough";
+          }
+      else{
+          cout<<"you have withdrawn your entire balance";
+          }
+      }
 
 };
 int main ()
 {
-   string h;
-   cin>>h;
-   Person c1;
-   c1.SetName(h);
-   cout<<c1.GetName()<<endl;
-   c1.SetPassword("dfghdfgjk");
-   cout<<c1.GetPassword();
+  Clint c;
+  c.SetBalance(2000);
+  cout<<c.GetBalance()<<endl;
+  c.Deposit( 2000 );
+  cout<<c.GetBalance()<<endl;
+  c.Withdraw(4000);
     return 0;
 }
