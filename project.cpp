@@ -1,7 +1,5 @@
 #include <iostream>
-
 using namespace std;
-
 class Person{
     int id;
     string name;
@@ -108,7 +106,7 @@ public:
 int main ()
 {
   Clint c(51,"sohadawood","8451316465",20000);
-  Clint c1(6546,"ahmedmohamed","846511115",15000);
+  Clint c1(6546,"ahmedmohamed","846511115",20000);
   c1.CheckBalance();
   c.CheckBalance();
   c.TransferTo(1000,c1);
