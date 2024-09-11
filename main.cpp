@@ -37,31 +37,24 @@ void printWelcomeToSSHBank() {
 
 }
 
- class Validation{
+ /*class Validation{
  public:
 
  static bool validatename(string name){
 
-      if(name.size()<=20&&name.size()>=5){
+      if(!(name.size()<=20&&name.size()>=5)){
 
-            return true;
+            return false;
        }
-       else{
-          cout<<"name must be 5:20 chars\n";
 
-          return false;
-       }
+
        for (int i = 0; i < name.size(); i++) {
-			if ((name[i] >= 'a' && name[i] <= 'z' || name[i] >= 'A' && name[i] <= 'Z')) {
+			if (!(name[i] >= 'a' && name[i] <= 'z' || name[i] >= 'A' && name[i] <= 'Z')) {
+				return false;
+				}
+				 }
 				return true;
-				}
-				else{
-                     cout<<" name must be Alphabet ";
-                      return false;
-				}
-
-
- }}
+ }
  static bool validatepassword(string password){
 
     if(password.size()<=20&&password.size()>=8){
@@ -99,23 +92,14 @@ void printWelcomeToSSHBank() {
 
 
  }
- };
+ };*/
+
 
 class Person{
-protected:
-
     int id;
     string name;
     string password;
 public:
-    person(){
-       id=0;
-    }
-    Person(int id, string name, string password) {
-		SetId(id);
-		SetName(name);
-		SetPassword(password);
-	}
     void SetId(int Id)
     {
         id=Id;
@@ -126,22 +110,21 @@ public:
     }
     void SetName(string Name)
     {
-      if(Validation::validatename(name)){
+      if(Name.size()<=20&&Name.size()>=5){
             name = Name;
        }
        else{
-          cout<<"name Invalid ";
-          name = "";
+          cout<<"name must be 5:20 chars\n";
+          name =" ";
        }
     }
     void SetPassword(string Password)
     {
-        if(Validation::validatepassword(password)){
+        if(Password.size()<=20&&Password.size()>=8){
             password= Password;
-
        }
        else{
-          cout<<"password Invalid ";
+          cout<<"password must be 8:20\n";
           password =" ";
     }
     }
@@ -153,47 +136,47 @@ public:
     {
         return password;
     }
-    void display() {
-		cout << "ID : " << id << endl;
-		cout << "Name : " << name << endl;
-		cout << "Password : " << password << endl;
-	}
+     void display()
+      {
+          cout<<"name = "<<GetName()<<endl;
+          cout<<"id = "<<GetId()<<endl;
+          cout<<"password = "<<GetPassword()<<endl;
 
-
+      }
 };
-class Clint :public Person{
+class Clint :public Person
+{
 private:
       double balance;
 public:
-
-
-      Clint(int id,string name,string password, double balance): Person(id, name, password)
+      Clint();
+      Clint(int Id,string Name,string Password, double Balance)
       {
-
-          SetBalance(balance);
+          SetId(Id);
+          SetName(Name);
+          SetPassword(Password);
+          balance = Balance;
       }
       void SetBalance(double Balance)
       {
-          if(Validation::validatebalance(balance)) {
+          if(Balance>=1500){
             balance = Balance;
           }else {
-
-          cout<<" Invalid balance "<<endl;
+          balance= 0;
+          cout<<" min balance is 1500"<<endl;
           }
       }
       double GetBalance()
       {
       return balance;
       }
-      //////////
       void Deposit(double Amount)
       {
-          if (Amount > 0)
        balance +=Amount;
       }
       void Withdraw(double Amount)
       {
-      if(balance>=Amount){
+      if(balance>Amount){
         balance-=Amount;
       }else if(balance<Amount){
           cout<<"balance isn't enough"<<endl;
@@ -202,7 +185,6 @@ public:
           cout<<"you have withdrawn your entire balance"<<endl;
           }
       }
-
       double TransferTo(double Amount,Clint &r1)
       {
        if(balance > Amount){
@@ -218,8 +200,10 @@ public:
       }
       void display()
       {
-          Person::display();
-          cout<<"Balance = "<<balance<<endl;
+          cout<<"name = "<<GetName()<<endl;
+          cout<<"id = "<<GetId()<<endl;
+          cout<<"password = "<<GetPassword()<<endl;
+          cout<<"balance = "<<balance<<endl;
       }
 };
 
@@ -228,15 +212,23 @@ private:
 	double salary;
 public:
 
-	Employee(int id, string name, string password, double salary) : Person(id, name, password) {
-		setSalary(salary);
-	}
+	  Employee();
+      Employee(int Id,string Name,string Password, double Balance,double Salary)
+      {
+          SetId(Id);
+          SetName(Name);
+          SetPassword(Password);
+          setSalary(salary);
 
-	void setSalary(double salary) {
-		if (Validation::validateSalary(salary))
-			this->salary = salary;
-		else cout << "Invalid salary\n";
-	}
+      }
+
+	void setSalary(double s) {
+		  if(salary>=5000){
+            salary = s;
+          }else {
+         salary= 0;
+          cout<<" minSalary is 5000"<<endl;
+          }}
 
 	double getSalary() {
 		return salary;
@@ -247,11 +239,34 @@ public:
 		cout << "Salary : " << salary << endl;
 	}
 };
-class Admin : public Employee {
+class Admin : public Person{
+    private:
+	double salary;
 public:
 
-	Admin(int id, string name, string password, double salary) : Employee(id, name, password, salary) {
+      Admin(int Id,string Name,string Password, double Balance,double Salary)
+      {
+          SetId(Id);
+          SetName(Name);
+          SetPassword(Password);
+          setSalary(salary);
 
+      }
+	void setSalary(double s) {
+		  if(salary>=5000){
+            salary = s;
+          }else {
+         salary= 0;
+          cout<<" minSalary is 5000"<<endl;
+          }}
+
+	double getSalary() {
+		return salary;
+	}
+
+	void display() {
+		Person::display();
+		cout << "Salary : " << salary << endl;
 	}
 
 };
@@ -281,11 +296,17 @@ int main ()
   setColor(7); // Default color
 
   Clint c(51,"sohadawood","8451316465",20000);
-  Clint c1(6546,"ahmedmohamed","846511115",20000);
+  Clint c1(6546,"ahmedmohamed","846511115",2000);
+
   c1.CheckBalance();
   c.CheckBalance();
   c.TransferTo(1000,c1);
   c.display();
   c1.display();
+  Employee e(5555,"alidawood","8451316465",10000,4000);
+  e.display();
+
+
+Clint c3(55,"soha","8451316465",20000);
     return 0;
 }
