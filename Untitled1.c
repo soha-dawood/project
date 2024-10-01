@@ -1,12 +1,10 @@
 #include <iostream>
-#include <string>
+#include <fstream>
 using namespace std;
 
-class Employee {
+class Employee :public Person
+ {
 private:
-    string name;
-    int id;
-    string password;
     double salary;
     Client clients[1000];
     int clientCount;

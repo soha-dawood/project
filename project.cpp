@@ -47,6 +47,7 @@ class Clint :public Person
 private:
       double balance;
 public:
+      Clint();
       Clint(int Id,string Name,string Password, double Balance)
       {
           SetId(Id);
@@ -112,5 +113,7 @@ int main ()
   c.TransferTo(1000,c1);
   c.DisPlay();
   c1.DisPlay();
+
+
     return 0;
 }

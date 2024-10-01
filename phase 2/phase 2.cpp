@@ -111,3 +111,9 @@ public:
 	}
 
 };
+
+/*
+static vector <client> allclients;
+static vector <employee> allemployees;
+static vector <admin> alladmins;
+*/
